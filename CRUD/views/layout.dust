@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>
+            NODEJS
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin=
+        "anonymous"> 
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity=
+        "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin=
+        "anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity=
+        "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin=
+        "anonymous"></script>
+        <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script >
+          $(document).ready(function(){
+            $('.delete-mahasiswa').on('click', function(){
+                var id = $(this).data('id');
+                var url = '/delete/'+id;
+                if(confirm('Delete Mahasiswa?'+id)){
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        success: function(result){
+                            console.log('Deleting Mahasiswa...');
+                        },
+                        error: function(err){
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+            $('.edit-mahasiswa').on('click', function(){
+              $('#edit-form-id').val($(this).data('id'));
+              $('#edit-form-firstname').val($(this).data('first_name'));
+              $('#edit-form-lastname').val($(this).data('last_name'));
+              $('#edit-form-gender').val($(this).data('gender'));
+              var dateString = $(this).data('date_of_birth');
+              var DateSubsString = dateString.substring(4,15);
+              var month = DateSubsString.substring(0,3);
+              var day = DateSubsString.substring(4,6);
+              var year = DateSubsString.substring(7,11);
+              switch(month) {
+                case "Jan":
+                  month = "01";
+                  break;
+                case "Feb":
+                  month = "02";
+                  break;
+                case "Mar": 
+                  month = "03";
+                  break;
+                case "Apr":
+                  month = "04";
+                  break;
+                case "Mei":
+                  month = "05";
+                  break;
+                case "Jun":
+                  month = "06";
+                  break;
+                case "Jul": 
+                  month = "07";
+                  break;
+                case "Aug": 
+                  month = "08";
+                  break;
+                case "Sep": 
+                  month = "09";
+                  break;
+                case "Oct": 
+                  month = "10";
+                  break;
+                case "Nov": 
+                  month = "11";
+                  break;
+                case "Des": 
+                  month = "12";
+                  break;
+               }
+              var Date_Of_Birth = year + "-" + month + "-" + day;
+              $('#edit-form-dateofbirth').val(Date_Of_Birth);
+            })
+        });
+        </script>
+    </head>
+    <body>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Date Of Birth</th>
+              </tr>
+            </thead>    
+            {+body /}
+    </table>
+    </body>
+</html> 
